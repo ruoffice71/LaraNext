@@ -1,0 +1,103 @@
+$theme_color_dark: #309887;
+$theme_color_light: #92BFBA;
+$theme_gradient_bg: linear-gradient(45deg, $theme_color_dark,$theme_color_dark, $theme_color_light);
+$font_green: #103633;
+
+
+p,h1,h2,h3,h4,h5,h6,ul,ol,li{
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    color: $theme_color_dark;
+    text-decoration: none;
+
+    &:hove{
+        text-decoration: none;
+    }
+}
+
+.bg_nav{
+    background-image: $theme_gradient_bg;
+}
+
+.bg_sidebar{
+    background-image: $theme_gradient_bg;
+}
+
+#sidenavAccordion{
+    .sb-sidenav-menu{
+        .nav{
+            a{
+                color: white;
+            }
+        }
+    }
+
+    .sb-sidenav-footer{
+        background-color: $theme_color_light;
+        color: white;
+
+        p{
+            font-size: 10px;
+            line-height: 8px;
+        }
+    }
+}
+
+.auth_body{
+        background-image: url("/auth_bg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100vw;
+        height: 100vh;
+        background-color: $theme_color_dark;
+        background-blend-mode: multiply;
+        position: relative;
+
+        .auth_card{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba($theme_color_light, 0.5);
+            border-radius: 5px;
+            // opacity: .9;
+            width: 450px;
+
+            .auth_card_header{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+                background: $theme_gradient_bg;
+
+                img{
+                    width: 200px;
+                    margin-right: 10px;
+                }
+                h1{
+                    color: $font_green;
+                }
+            }
+
+            .auth_card_body{
+                // padding: 30px;
+            }
+            .auth_card_footer{
+                padding: 10px 20px;
+                background: $theme_gradient_bg;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                a{
+                    color: white;
+                    &:hover{
+                        color: $font_green;
+                    }
+                }
+            }
+        }
+}
