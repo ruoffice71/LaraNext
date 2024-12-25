@@ -13,6 +13,7 @@ import { useEffect } from "react";
 
 export default function RootLayout({ children }) {
   const path = usePathname()
+  const ignore_default_layout = ['/login', '/register']
 
   useEffect(() => {
     console.log(path)
@@ -24,7 +25,8 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
       </head>
-      {path == '/login' ?
+      {/* এখানে Include কোন elament এর উপস্থিতি array এর মধ্যে আছে কিনা দেখে  */}
+      {ignore_default_layout.includes(path) ?
         <body className="auth_body">
           {children}
         </body>

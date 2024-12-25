@@ -22,10 +22,10 @@ const Login = () => {
                 <div className="input-group mt-3">
                     <span className="input-group-text"><i className='fas fa-lock'></i></span>
                     <input
-                        type="text"
-                        id="email_or_phone"
-                        name="email_or_phone"
-                        placeholder="Enter email/phone"
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
                         className="form-control w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent"
                     />
                     <span className="input-group-text"><i className='fas fa-eye'></i></span>
@@ -36,7 +36,7 @@ const Login = () => {
             </div>
             <div className='auth_card_footer'>
                 <Link href={'/'}><i className='fa-solid fa-fingerprint'></i> Forgot password?</Link>
-                <Link href={'/'}><i className='fa-solid fa-user-tie'></i> Register here</Link>
+                <Link href={'/register'}><i className='fa-solid fa-user-tie'></i> Register here</Link>
             </div>
         </div>
     );
