@@ -15,13 +15,26 @@ const register = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://127.0.0.1:8000/api/register', input).then(res => {
-            console.log(res.data);
-        }).catch(err => {
-            if (err.response.status === 422) {
-                setErrors(err.response.data.errors);
+        axios.post(`${process.env.BASE_URL}/register`, input).then(res => {
+            // console.log(res.data);
+            // if anyone do it in serverside then data have to store in cookie instead of localStorage 
+            const userName = res?.data?.data?.user?.name;
+            const authToken = res?.data?.data?.token;
+
+            if (userName && authToken) {
+                localStorage.setItem('user_name', userName);
+                localStorage.setItem('auth_token', authToken);
+                window.location.href = '/'
+            } else {
+                console.error("Response does not contain user or token data.");
             }
-        })
+        }).catch(err => {
+            if (err.response && err.response.status === 422) {
+                setErrors(err.response.data.errors);
+            } else {
+                console.error("An unexpected error occurred:", err);
+            }
+        });
     }
     return (
         <div className='auth_card shadow-lg'>
@@ -41,7 +54,7 @@ const register = () => {
                         placeholder="Enter fullname"
                         className={`form-control w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none bg-transparent ${errors.name ? 'is-invalid' : ''}`}
                     />
-                    <p className="custom_validation_massege">{errors.name != undefined ? errors.name[0] : ''} <br/></p>
+                    {errors.name != undefined ? <p className="custom_validation_massege">{errors.name[0]}</p> : null}
                 </div>
                 <div className="input-group mt-4">
                     <span className="input-group-text"><i className='fas fa-phone'></i></span>
@@ -54,7 +67,7 @@ const register = () => {
                         placeholder="Enter phone"
                         className={`form-control w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none bg-transparent ${errors.phone ? 'is-invalid' : ''}`}
                     />
-                    <p className="custom_validation_massege">{errors.phone != undefined ? errors.phone[0] : ''} <br/></p>
+                    {errors.phone != undefined ? <p className="custom_validation_massege">{errors.phone[0]}</p> : null}
                 </div>
                 <div className="input-group mt-4">
                     <span className="input-group-text"><i className='fas fa-at'></i></span>
@@ -67,7 +80,7 @@ const register = () => {
                         placeholder="Enter email"
                         className={`form-control w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent ${errors.email ? 'is-invalid' : ''}`}
                     />
-                    <p className="custom_validation_massege">{errors.email != undefined ? errors.email[0] : ''} <br/></p>
+                    {errors.email != undefined ? <p className="custom_validation_massege">{errors.email[0]}</p> : null}
                 </div>
                 <div className="input-group mt-4">
                     <span className="input-group-text"><i className='fas fa-lock'></i></span>
@@ -81,7 +94,7 @@ const register = () => {
                         className={`form-control w-[300px] border border-slate-200 rounded-lg py-3 px-5 outline-none	bg-transparent ${errors.password ? 'is-invalid' : ''}`}
                     />
                     <span className="input-group-text"><i className='fas fa-eye'></i></span>
-                    <p className="custom_validation_massege">{errors.password != undefined ? errors.password[0] : ''} <br/></p>
+                    {errors.password != undefined ? <p className="custom_validation_massege">{errors.password[0]}</p> : null}
                 </div>
             </div>
             <div className='text-center'>

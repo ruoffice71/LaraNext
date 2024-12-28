@@ -7,6 +7,12 @@ const Nav = () => {
         document.body.classList.toggle('sb-sidenav-toggled');
         localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
     }
+
+    const handleLogout = () => {
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user_name');
+        window.location.href = '/login ';
+    }
     
     return (
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg_nav">
@@ -32,7 +38,7 @@ const Nav = () => {
                         <li><Link className="dropdown-item" href="#!">Settings</Link></li>
                         <li><Link className="dropdown-item" href="#!">Activity Log</Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><Link className="dropdown-item" href="#!">Logout</Link></li>
+                        <li><button onClick={handleLogout} className="dropdown-item">Logout</button></li>
                     </ul>
                 </li>
             </ul>
