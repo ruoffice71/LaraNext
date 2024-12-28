@@ -6,6 +6,7 @@ import React, { use, useState } from 'react';
 const register = () => {
     const [input, setInput] = useState({});
     const [errors, setErrors] = useState([]);
+    const [isloading, setIsLoading] = useState(false);
     const handleInput = (e) => {
         setErrors([]);
         setInput(prevState => ({
@@ -15,6 +16,7 @@ const register = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         axios.post(`${process.env.BASE_URL}/register`, input).then(res => {
             // console.log(res.data);
             // if anyone do it in serverside then data have to store in cookie instead of localStorage 
@@ -28,7 +30,9 @@ const register = () => {
             } else {
                 console.error("Response does not contain user or token data.");
             }
+            setIsLoading(false);
         }).catch(err => {
+            setIsLoading(false);
             if (err.response && err.response.status === 422) {
                 setErrors(err.response.data.errors);
             } else {
@@ -98,7 +102,12 @@ const register = () => {
                 </div>
             </div>
             <div className='text-center'>
-                <button onClick={handleSubmit} className="btn btn-success mb-3 mt-3 w-50">Register</button>
+                <button onClick={handleSubmit} className="btn btn-success mb-3 mt-3 w-50">
+                    {isloading ? 
+                    <div className="spinner-border spinner-border-sm" role="status"> 
+                        <span className="visually-hidden">Loading...</span>
+                    </div> : 'Register'}
+                </button>
             </div>
             <div className='auth_card_footer'>
                 <Link href={'/'}><i className='fa-solid fa-fingerprint'></i> Forgot password?</Link>
